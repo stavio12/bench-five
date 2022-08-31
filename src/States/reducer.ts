@@ -12,15 +12,16 @@ const baseProduct = {
 };
 
 export interface StateType {
-  Products: { disc: Disc[]; books: Books[]; furniture: Furniture[] };
+  products: { disc: Disc[]; books: Books[]; furniture: Furniture[] };
   Loader: boolean;
   disc: Disc;
   books: Books;
   furniture: Furniture;
+  editProduct: boolean;
 }
 
 export const initialState: StateType = {
-  Products: {
+  products: {
     disc: [],
     books: [],
     furniture: [],
@@ -36,15 +37,17 @@ export const initialState: StateType = {
       L: 0,
     },
   },
+  editProduct: false,
 };
 
 export interface StateAction
-  extends Action<"PRODUCTS" | "DISC" | "BOOKS" | "FURNITURE"> {
+  extends Action<"PRODUCTS" | "DISC" | "BOOKS" | "FURNITURE" | "EDIT_PRODUCT"> {
   payload: {
-    Products: { disc: Disc[]; books: Books[]; furniture: Furniture[] };
+    products: { disc: Disc[]; books: Books[]; furniture: Furniture[] };
     disc: Disc;
     books: Books;
     furniture: Furniture;
+    editProduct: boolean;
   };
 }
 
@@ -54,13 +57,15 @@ export const reducer = (
 ): StateType => {
   switch (action.type) {
     case "PRODUCTS":
-      return { ...state, Products: action.payload };
+      return { ...state, products: action.payload };
     case "DISC":
       return { ...state, disc: action.payload };
     case "BOOKS":
       return { ...state, books: action.payload };
     case "FURNITURE":
       return { ...state, furniture: action.payload };
+    case "EDIT_PRODUCT":
+      return { ...state, editProduct: action.payload };
     default:
       return state;
   }

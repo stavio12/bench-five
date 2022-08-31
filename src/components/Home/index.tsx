@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+// import DispatchContext from "../../DispatchContext";
+import Buttons from "./Buttons";
 
 const Index = () => {
+  const [selectedProducts, setSelectedProducts] = useState<number[]>([]);
+
   return (
     <>
       <div>
@@ -10,29 +14,30 @@ const Index = () => {
           </div>
 
           <div className="d-flex gap-4">
-            <button
-              type="button"
-              className="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-            >
-              Green
-            </button>
+            <Buttons selectedProducts={selectedProducts} />
             <button
               type="button"
               className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
             >
-              Red
+              Mass Delete
             </button>
           </div>
         </div>
-
+        <hr />
         <div className="grid grid-cols-3 sm:grid-cols-4 grid-rows-3 gap-5">
           <div className="col-span-full*">
             <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center">
                 <input
+                  onChange={(e) =>
+                    setSelectedProducts([
+                      ...selectedProducts,
+                      Number(e.target.value),
+                    ])
+                  }
                   id="checked-checkbox"
                   type="checkbox"
-                  value=""
+                  value={1}
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>
@@ -59,9 +64,15 @@ const Index = () => {
             <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center">
                 <input
+                  onChange={(e) =>
+                    setSelectedProducts([
+                      ...selectedProducts,
+                      Number(e.target.value),
+                    ])
+                  }
                   id="checked-checkbox"
                   type="checkbox"
-                  value=""
+                  value={2}
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>
@@ -88,9 +99,15 @@ const Index = () => {
             <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center">
                 <input
+                  onChange={(e) =>
+                    setSelectedProducts([
+                      ...selectedProducts,
+                      Number(e.target.value),
+                    ])
+                  }
                   id="checked-checkbox"
                   type="checkbox"
-                  value=""
+                  value={3}
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>
@@ -117,9 +134,15 @@ const Index = () => {
             <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center">
                 <input
+                  onChange={(e) =>
+                    setSelectedProducts([
+                      ...selectedProducts,
+                      Number(e.target.value),
+                    ])
+                  }
                   id="checked-checkbox"
                   type="checkbox"
-                  value=""
+                  value={4}
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>

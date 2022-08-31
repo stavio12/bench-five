@@ -16,7 +16,7 @@ function App() {
         <div className="w-11/12 mx-auto pt-10">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/:id" element={<Products />} />
+            <Route path="/product" element={<Products />} />
           </Routes>
         </div>
       </DispatchContext.Provider>

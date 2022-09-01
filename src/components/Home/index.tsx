@@ -14,6 +14,8 @@ const Index = () => {
     ...products.furniture,
   ]);
 
+  const [pagination, setPagination] = useState<number>(4);
+
   useEffect(() => {
     localStorage.setItem("products", JSON.stringify(products));
   });
@@ -45,6 +47,8 @@ const Index = () => {
       (item) => !selectedProducts.find((f) => f === item.SKU)
     );
     setFurniture(newFurniture);
+
+    return setSelectedProducts([]);
   };
 
   return (
@@ -71,20 +75,50 @@ const Index = () => {
         <div className="flex-flex-column*">
           <div className="grid grid-cols-3 sm:grid-cols-4 pb-5 gap-5 ">
             {/* {products.disc && ( */}
-            <DiscProduct selectWorker={selectWorker} dvd={dvd} />
+            <DiscProduct
+              selectWorker={selectWorker}
+              dvd={dvd}
+              pagination={pagination}
+            />
             {/* )} */}
           </div>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 pb-5 gap-5 ">
-            <BooksProduct selectWorker={selectWorker} books={books} />
+            <BooksProduct
+              selectWorker={selectWorker}
+              books={books}
+              pagination={pagination}
+            />
           </div>
 
           <div className="grid grid-cols-3 sm:grid-cols-4 pb-5  gap-5 ">
             <FurnitureProduct
               selectWorker={selectWorker}
               furniture={furniture}
+              pagination={pagination}
             />
           </div>
+        </div>
+
+        <div className="text-center pb-5">
+          <button
+            onClick={() =>
+              pagination > 4
+                ? setPagination(pagination - 4)
+                : setPagination(pagination)
+            }
+            className="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+            disabled={pagination < 4}
+          >
+            Previous
+          </button>
+
+          <button
+            onClick={() => setPagination(pagination + 4)}
+            className="inline-flex items-center py-2 px-4 ml-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
+            Next
+          </button>
         </div>
       </div>
     </>

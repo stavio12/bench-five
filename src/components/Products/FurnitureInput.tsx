@@ -29,6 +29,12 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
           }
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter product Height"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Enter product height"
+            )
+          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           required
         />
       </div>
@@ -51,6 +57,12 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
           }
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter product width"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Enter product width"
+            )
+          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           required
         />
       </div>
@@ -73,6 +85,12 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
           }
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter product length"
+          onInvalid={(e) =>
+            (e.target as HTMLInputElement).setCustomValidity(
+              "Enter product length"
+            )
+          }
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           required
         />
       </div>

@@ -2,7 +2,7 @@ export interface BaseProduct {
   SKU: string;
   name: string;
   price: number;
-  image: string;
+  // image: string;
 }
 
 export interface Disc extends BaseProduct {
@@ -14,9 +14,7 @@ export interface Books extends BaseProduct {
 }
 
 export interface Furniture extends BaseProduct {
-  dimensions: {
-    H: number;
-    W: number;
-    L: number;
-  };
+  h: number;
+  w: number;
+  l: number;
 }

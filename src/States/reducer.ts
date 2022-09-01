@@ -4,7 +4,7 @@ interface Action<T> {
   type: T;
 }
 
-const baseProduct = {
+export const baseProduct = {
   SKU: "",
   name: "",
   price: 0,
@@ -31,11 +31,9 @@ export const initialState: StateType = {
   books: { ...baseProduct, weight: "" },
   furniture: {
     ...baseProduct,
-    dimensions: {
-      H: 0,
-      W: 0,
-      L: 0,
-    },
+    h: 0,
+    w: 0,
+    l: 0,
   },
   editProduct: false,
 };

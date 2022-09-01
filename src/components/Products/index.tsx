@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import StateContext from "../../StateContext";
+import DispatchContext from "../../DispatchContext";
 import { baseProduct } from "../../States/reducer";
-import { BaseProduct, Books, Disc, Furniture } from "../../States/types";
+import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 
 import AddProduct from "./AddProduct";
 import EditProduct from "./EditProduct";
 
 const Index = () => {
-  const { editProduct } = useContext(StateContext);
+  let navigate = useNavigate();
+  const { editProduct, products } = useContext(StateContext);
+  const dispatch = useContext(DispatchContext);
 
-  const [selectProductType, setSelectProductType] = useState<string>("disc");
+  const [selectProductType, setSelectProductType] = useState<string>("dvd");
 
   const [productForms, setProductForms] = useState<BaseProduct>({
     ...baseProduct,
@@ -22,7 +25,7 @@ const Index = () => {
     weight: "",
   });
 
-  const [discForm, setDiscForm] = useState<Disc>({
+  const [dvdForm, setDvdForm] = useState<DVD>({
     ...productForms,
     size: "",
   });
@@ -34,12 +37,70 @@ const Index = () => {
     l: 0,
   });
 
+  // useEffect(() => {
+  //   localStorage.setItem("products", JSON.stringify(products));
+  //   // @ts-ignore
+  //   console.log(JSON.parse(localStorage.getItem("products")));
+  // }, [products]);
+
   const submit = (e: any) => {
     e.preventDefault();
-    console.log("disc", discForm);
-    console.log("books", booksForm);
-    console.log("furniture", furnitureForm);
+    // console.log("dvd", dvdForm);
+    // console.log("books", booksForm);
+    // console.log("furniture", furnitureForm);
+
+    const allProducts = [
+      ...products.dvd,
+      ...products.books,
+      ...products.furniture,
+    ];
+
+    if (allProducts.find((product: any) => product.SKU === dvdForm.SKU)) {
+      console.log(products);
+
+      const sku = document.querySelector("#sku");
+
+      //@ts-ignore
+      return (sku.value = "");
+    } else {
+      console.log("works");
+      console.log(products);
+
+      selectProductType === "dvd" &&
+        dispatch({
+          type: "PRODUCTS",
+          payload: { ...products, dvd: [...products.dvd, dvdForm] },
+        });
+
+      selectProductType === "book" &&
+        dispatch({
+          type: "PRODUCTS",
+          payload: { ...products, books: [...products.books, booksForm] },
+        });
+
+      selectProductType === "furniture" &&
+        dispatch({
+          type: "PRODUCTS",
+          payload: {
+            ...products,
+            furniture: [...products.furniture, furnitureForm],
+          },
+        });
+
+      return navigate("/");
+    }
+
+    // if (allProducts.filter((product: any) => product.SKU !== dvdForm.SKU)) {
+    //   console.log(products, allProducts);
+
+    //   allProducts.filter((product: any) =>
+    //     console.log(product.SKU === dvdForm.SKU)
+    //   );
+    // } else {
+    //   console.log("yessss");
+    // }
   };
+
   return (
     <>
       <form onSubmit={submit}>
@@ -66,7 +127,7 @@ const Index = () => {
         {!editProduct && (
           <AddProduct
             book={setBooksForms}
-            disc={setDiscForm}
+            dvd={setDvdForm}
             setFurniture={setFurnitureForm}
             furniture={furnitureForm}
             setBaseForm={setProductForms}
@@ -78,7 +139,7 @@ const Index = () => {
         {editProduct && (
           <EditProduct
             book={setBooksForms}
-            disc={setDiscForm}
+            dvd={setDvdForm}
             setFurniture={setFurnitureForm}
             furniture={furnitureForm}
             setBaseForm={setProductForms}

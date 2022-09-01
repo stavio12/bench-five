@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { baseProduct } from "../../States/reducer";
-import { BaseProduct, Books, Disc, Furniture } from "../../States/types";
+import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 import BookInput from "./BookInput";
 import DiscInput from "./DiscInput";
 import FurnitureInput from "./FurnitureInput";
 
 interface props {
   book: (book: Books) => void;
-  disc: (disc: Disc) => void;
+  dvd: (dvd: DVD) => void;
   setFurniture: (furniture: Furniture) => void;
   furniture: Furniture;
   setBaseForm: (baseForm: BaseProduct) => void;
@@ -18,7 +18,7 @@ interface props {
 
 const EditProduct = ({
   book,
-  disc,
+  dvd,
   furniture,
   baseForm,
   setFurniture,
@@ -26,7 +26,7 @@ const EditProduct = ({
   productType,
   selectedProductType,
 }: props) => {
-  const productsType = ["disc", "furniture", "book"];
+  const productsType = ["dvd", "furniture", "book"];
 
   return (
     <>
@@ -105,8 +105,8 @@ const EditProduct = ({
               ))}
             </select>
           </div>
-          {selectedProductType === "disc" && (
-            <DiscInput size={disc} baseForm={baseForm} />
+          {selectedProductType === "dvd" && (
+            <DiscInput size={dvd} baseForm={baseForm} />
           )}{" "}
           {selectedProductType === "book" && (
             <BookInput weight={book} baseForm={baseForm} />

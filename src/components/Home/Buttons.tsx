@@ -4,7 +4,7 @@ import StateContext from "../../StateContext";
 import { useNavigate } from "react-router-dom";
 
 interface props {
-  selectedProducts: number[];
+  selectedProducts: string[];
 }
 
 const Buttons = ({ selectedProducts }: props) => {

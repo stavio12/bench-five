@@ -1,4 +1,4 @@
-import { Books, Disc, Furniture } from "./types";
+import { Books, DVD, Furniture } from "./types";
 
 interface Action<T> {
   type: T;
@@ -8,13 +8,14 @@ export const baseProduct = {
   SKU: "",
   name: "",
   price: 0,
-  image: "",
+  // image: "",
+  created_at: new Date().toLocaleString(),
 };
 
 export interface StateType {
-  products: { disc: Disc[]; books: Books[]; furniture: Furniture[] };
+  products: { dvd: DVD[]; books: Books[]; furniture: Furniture[] };
   Loader: boolean;
-  disc: Disc;
+  dvd: DVD;
   books: Books;
   furniture: Furniture;
   editProduct: boolean;
@@ -22,12 +23,12 @@ export interface StateType {
 
 export const initialState: StateType = {
   products: {
-    disc: [],
+    dvd: [],
     books: [],
     furniture: [],
   },
   Loader: false,
-  disc: { ...baseProduct, size: "" },
+  dvd: { ...baseProduct, size: "" },
   books: { ...baseProduct, weight: "" },
   furniture: {
     ...baseProduct,
@@ -39,10 +40,10 @@ export const initialState: StateType = {
 };
 
 export interface StateAction
-  extends Action<"PRODUCTS" | "DISC" | "BOOKS" | "FURNITURE" | "EDIT_PRODUCT"> {
+  extends Action<"PRODUCTS" | "DVD" | "BOOKS" | "FURNITURE" | "EDIT_PRODUCT"> {
   payload: {
-    products: { disc: Disc[]; books: Books[]; furniture: Furniture[] };
-    disc: Disc;
+    products: { dvd: DVD[]; books: Books[]; furniture: Furniture[] };
+    dvd: DVD;
     books: Books;
     furniture: Furniture;
     editProduct: boolean;
@@ -56,8 +57,8 @@ export const reducer = (
   switch (action.type) {
     case "PRODUCTS":
       return { ...state, products: action.payload };
-    case "DISC":
-      return { ...state, disc: action.payload };
+    case "DVD":
+      return { ...state, dvd: action.payload };
     case "BOOKS":
       return { ...state, books: action.payload };
     case "FURNITURE":

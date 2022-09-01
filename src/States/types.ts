@@ -3,9 +3,10 @@ export interface BaseProduct {
   name: string;
   price: number;
   // image: string;
+  created_at: string;
 }
 
-export interface Disc extends BaseProduct {
+export interface DVD extends BaseProduct {
   size: string;
 }
 

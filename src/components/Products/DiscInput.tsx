@@ -1,8 +1,8 @@
 import React from "react";
-import { Disc, BaseProduct } from "../../States/types";
+import { DVD, BaseProduct } from "../../States/types";
 
 interface props {
-  size: (size: Disc) => void;
+  size: (size: DVD) => void;
   baseForm: BaseProduct;
 }
 

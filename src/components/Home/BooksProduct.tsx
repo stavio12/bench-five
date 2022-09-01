@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Books } from "../../States/types";
 
 interface props {
@@ -28,14 +29,22 @@ const BooksProduct = ({ books, selectWorker, pagination }: props) => {
                   className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                 />
               </div>
-              <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                {book.name}{" "}
+              <small> SKU: {book.SKU}</small>
+              <h5>
+                <Link
+                  to="/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
+                >
+                  name: {book.name}
+                </Link>
               </h5>
               <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
                 Go to this step by step guideline process on how to certify for
                 your weekly benefits:
               </p>
-              See our guideline
+              price :$ {book.price}
               <svg
                 className="ml-2 w-5 h-5"
                 fill="currentColor"

@@ -4,8 +4,6 @@ import { selectWorker } from "../../utils/functions";
 
 interface props {
   furniture: Furniture;
-  // selectWorker: (sku: string, checked: boolean, DVD: string) => void;
-  pagination: number;
   selectedProducts: string[];
   setSelectProductEdit: (products: { type: string; sku: string }) => void;
   setSelectedProducts: (products: string[]) => void;
@@ -13,7 +11,6 @@ interface props {
 
 const FurnitureProduct = ({
   furniture,
-  pagination,
   selectedProducts,
   setSelectProductEdit,
   setSelectedProducts,

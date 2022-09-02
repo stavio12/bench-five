@@ -4,8 +4,6 @@ import { selectWorker } from "../../utils/functions";
 
 interface props {
   dvd: DVD;
-  // selectWorker: (sku: string, checked: boolean, DVD: string) => void;
-  pagination: number;
   selectedProducts: string[];
   setSelectProductEdit: (products: { type: string; sku: string }) => void;
   setSelectedProducts: (products: string[]) => void;
@@ -13,12 +11,10 @@ interface props {
 
 const DiscProduct = ({
   dvd,
-  pagination,
   selectedProducts,
   setSelectProductEdit,
   setSelectedProducts,
 }: props) => {
-  console.log(dvd.name);
   return (
     <>
       <div className="flex justify-center">

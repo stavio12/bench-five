@@ -70,6 +70,7 @@ export const massDelete = (
 
   setSelectedProducts([]);
 
+  //subtract the number of selected items from pagination
   return setPagination(6);
 };
 

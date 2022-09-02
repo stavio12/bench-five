@@ -23,7 +23,8 @@ export const massDelete = (
   setBooks: (books: Books[]) => void,
   setDVD: (dvd: DVD[]) => void,
   dispatch: any,
-  setSelectedProducts: (products: string[]) => void
+  setSelectedProducts: (products: string[]) => void,
+  setPagination: (path: number) => void
 ) => {
   const newDVD = dvd.filter(
     (item) => !selectedProducts.find((f: string) => f === item.SKU)
@@ -67,7 +68,9 @@ export const massDelete = (
     )
   );
 
-  return setSelectedProducts([]);
+  setSelectedProducts([]);
+
+  return setPagination(12);
 };
 
 export const selectWorker = (

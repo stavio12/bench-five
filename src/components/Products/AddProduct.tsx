@@ -26,7 +26,7 @@ const AddProduct = ({
   productType,
   selectedProductType,
 }: props) => {
-  const productsType = ["dvd", "furniture", "book"];
+  const productsType = ["DVD", "Furniture", "Books"];
 
   return (
     <>
@@ -128,13 +128,13 @@ const AddProduct = ({
               ))}
             </select>
           </div>
-          {selectedProductType === "dvd" && (
+          {selectedProductType === "DVD" && (
             <DiscInput size={dvd} baseForm={baseForm} />
           )}{" "}
-          {selectedProductType === "book" && (
+          {selectedProductType === "Books" && (
             <BookInput weight={book} baseForm={baseForm} />
           )}
-          {selectedProductType === "furniture" && (
+          {selectedProductType === "Furniture" && (
             <FurnitureInput
               dimension={setFurniture}
               baseForm={baseForm}

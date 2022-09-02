@@ -11,10 +11,11 @@ import EditProduct from "./EditProduct";
 
 const Index = () => {
   let navigate = useNavigate();
-  const { editProduct, products } = useContext(StateContext);
+  const { editProduct, products, dvd, books, furniture } =
+    useContext(StateContext);
   const dispatch = useContext(DispatchContext);
 
-  const [selectProductType, setSelectProductType] = useState<string>("dvd");
+  const [selectProductType, setSelectProductType] = useState<string>("DVD");
 
   const [productForms, setProductForms] = useState<BaseProduct>({
     ...baseProduct,
@@ -37,68 +38,51 @@ const Index = () => {
     l: 0,
   });
 
-  // useEffect(() => {
-  //   localStorage.setItem("products", JSON.stringify(products));
-  //   // @ts-ignore
-  //   console.log(JSON.parse(localStorage.getItem("products")));
-  // }, [products]);
+  const allProducts = [...dvd, ...books, ...furniture];
 
   const submit = (e: any) => {
     e.preventDefault();
-    // console.log("dvd", dvdForm);
-    // console.log("books", booksForm);
-    // console.log("furniture", furnitureForm);
 
-    const allProducts = [
-      ...products.dvd,
-      ...products.books,
-      ...products.furniture,
-    ];
-
-    if (allProducts.find((product: any) => product.SKU === dvdForm.SKU)) {
-      console.log(products);
-
+    if (allProducts.find((product: any) => product.SKU === productForms.SKU)) {
       const sku = document.querySelector("#sku");
 
       //@ts-ignore
       return (sku.value = "");
     } else {
-      console.log("works");
-      console.log(products);
+      const newDVD = [...dvd, dvdForm];
+      const newBooks = [...books, booksForm];
+      const newFurniture = [...furniture, furnitureForm];
 
-      selectProductType === "dvd" &&
+      console.log(newDVD);
+      selectProductType === "DVD" &&
         dispatch({
-          type: "PRODUCTS",
-          payload: { ...products, dvd: [...products.dvd, dvdForm] },
+          type: "DVD",
+          payload: newDVD,
         });
 
-      selectProductType === "book" &&
+      selectProductType === "Book" &&
         dispatch({
-          type: "PRODUCTS",
-          payload: { ...products, books: [...products.books, booksForm] },
+          type: "BOOKS",
+          payload: newBooks,
         });
 
-      selectProductType === "furniture" &&
+      selectProductType === "Furniture" &&
         dispatch({
-          type: "PRODUCTS",
-          payload: {
-            ...products,
-            furniture: [...products.furniture, furnitureForm],
-          },
+          type: "FURNITURE",
+          payload: newFurniture,
         });
+
+      localStorage.setItem(
+        `${selectProductType}`,
+        JSON.stringify(
+          (selectProductType === "DVD" && newDVD) ||
+            (selectProductType === "Books" && newBooks) ||
+            (selectProductType === "Furniture" && newFurniture)
+        )
+      );
 
       return navigate("/");
     }
-
-    // if (allProducts.filter((product: any) => product.SKU !== dvdForm.SKU)) {
-    //   console.log(products, allProducts);
-
-    //   allProducts.filter((product: any) =>
-    //     console.log(product.SKU === dvdForm.SKU)
-    //   );
-    // } else {
-    //   console.log("yessss");
-    // }
   };
 
   return (

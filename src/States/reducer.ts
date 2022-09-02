@@ -15,9 +15,9 @@ export const baseProduct = {
 export interface StateType {
   products: { dvd: DVD[]; books: Books[]; furniture: Furniture[] };
   Loader: boolean;
-  dvd: DVD;
-  books: Books;
-  furniture: Furniture;
+  dvd: DVD[];
+  books: Books[];
+  furniture: Furniture[];
   editProduct: boolean;
 }
 
@@ -28,14 +28,9 @@ export const initialState: StateType = {
     furniture: [],
   },
   Loader: false,
-  dvd: { ...baseProduct, size: "" },
-  books: { ...baseProduct, weight: "" },
-  furniture: {
-    ...baseProduct,
-    h: 0,
-    w: 0,
-    l: 0,
-  },
+  dvd: [],
+  books: [],
+  furniture: [],
   editProduct: false,
 };
 
@@ -43,9 +38,9 @@ export interface StateAction
   extends Action<"PRODUCTS" | "DVD" | "BOOKS" | "FURNITURE" | "EDIT_PRODUCT"> {
   payload: {
     products: { dvd: DVD[]; books: Books[]; furniture: Furniture[] };
-    dvd: DVD;
-    books: Books;
-    furniture: Furniture;
+    dvd: DVD[];
+    books: Books[];
+    furniture: Furniture[];
     editProduct: boolean;
   };
 }

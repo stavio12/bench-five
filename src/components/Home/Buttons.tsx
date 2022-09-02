@@ -5,16 +5,32 @@ import { useNavigate } from "react-router-dom";
 
 interface props {
   selectedProducts: string[];
+  selectProductEdit: {
+    type: string;
+    sku: string;
+  };
 }
 
-const Buttons = ({ selectedProducts }: props) => {
+const Buttons = ({ selectedProducts, selectProductEdit }: props) => {
   const dispatch = useContext(DispatchContext);
   const state = useContext(StateContext);
   let navigate = useNavigate();
 
   const toggleAddOrEditPage = (toggle: boolean) => {
-    dispatch({ type: "EDIT_PRODUCT", payload: toggle });
+    if (toggle) {
+      const found = state[selectProductEdit.type.toLocaleLowerCase()].find(
+        (element: any) => element.SKU === selectProductEdit.sku
+      );
 
+      dispatch({
+        type: "EDIT_PRODUCT",
+        payload: {
+          edit: toggle,
+          product: found,
+          type: selectProductEdit.type,
+        },
+      });
+    }
     return navigate("/product");
   };
 

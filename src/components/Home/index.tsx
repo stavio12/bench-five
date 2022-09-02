@@ -14,6 +14,13 @@ const Index = () => {
   const [dvd, setDVD] = useState<DVD[]>([]);
   const [books, setBooks] = useState<Books[]>([]);
   const [furniture, setFurniture] = useState<Furniture[]>([]);
+  const [selectProductEdit, setSelectProductEdit] = useState<{
+    type: string;
+    sku: string;
+  }>({
+    type: "",
+    sku: "",
+  });
 
   const [pagination, setPagination] = useState<number>(4);
 
@@ -56,7 +63,8 @@ const Index = () => {
     }
   }, []);
 
-  const selectWorker = (sku: string, checked: boolean) => {
+  const selectWorker = (sku: string, checked: boolean, type: string) => {
+    setSelectProductEdit({ type, sku });
     //check if product is checked,
     // if it's checked add to array for deletion else remove from array when unchecked
     if (checked) {
@@ -122,7 +130,10 @@ const Index = () => {
           </div>
 
           <div className="d-flex gap-4">
-            <Buttons selectedProducts={selectedProducts} />
+            <Buttons
+              selectedProducts={selectedProducts}
+              selectProductEdit={selectProductEdit}
+            />
             <button
               type="button"
               className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"

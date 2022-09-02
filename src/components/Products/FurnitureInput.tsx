@@ -8,6 +8,7 @@ interface props {
 }
 
 const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
+  console.log(furniture);
   return (
     <>
       <div>
@@ -19,6 +20,7 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
         </label>
         <input
           type="number"
+          value={furniture.h}
           onChange={(e) =>
             dimension({
               ...baseForm,
@@ -47,6 +49,7 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
         </label>
         <input
           type="number"
+          value={furniture.w}
           onChange={(e) =>
             dimension({
               ...baseForm,
@@ -75,6 +78,7 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
         </label>
         <input
           type="number"
+          value={furniture.l}
           onChange={(e) =>
             dimension({
               ...baseForm,

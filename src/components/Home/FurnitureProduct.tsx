@@ -4,7 +4,7 @@ import { Furniture } from "../../States/types";
 
 interface props {
   furniture: Furniture[];
-  selectWorker: (sku: string, checked: boolean) => void;
+  selectWorker: (sku: string, checked: boolean, Furniture: string) => void;
   pagination: number;
 }
 
@@ -21,7 +21,7 @@ const FurnitureProduct = ({ furniture, selectWorker, pagination }: props) => {
               <div className="flex items-center">
                 <input
                   onChange={(e) =>
-                    selectWorker(e.target.value, e.target.checked)
+                    selectWorker(e.target.value, e.target.checked, "Furniture")
                   }
                   id="checked-checkbox"
                   type="checkbox"

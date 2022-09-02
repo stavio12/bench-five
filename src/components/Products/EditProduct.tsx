@@ -1,4 +1,10 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import DispatchContext from "../../DispatchContext";
+import StateContext from "../../StateContext";
+
 import { baseProduct } from "../../States/reducer";
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 import BookInput from "./BookInput";
@@ -6,14 +12,16 @@ import DiscInput from "./DiscInput";
 import FurnitureInput from "./FurnitureInput";
 
 interface props {
-  book: (book: Books) => void;
-  dvd: (dvd: DVD) => void;
+  setBook: (book: Books) => void;
+  setDVD: (dvd: DVD) => void;
   setFurniture: (furniture: Furniture) => void;
   furniture: Furniture;
   setBaseForm: (baseForm: BaseProduct) => void;
   productType: (type: string) => void;
   selectedProductType: string;
   baseForm: BaseProduct;
+  book: Books;
+  dvd: DVD;
 }
 
 const EditProduct = ({
@@ -25,8 +33,27 @@ const EditProduct = ({
   setBaseForm,
   productType,
   selectedProductType,
+  setDVD,
+  setBook,
 }: props) => {
-  const productsType = ["dvd", "furniture", "book"];
+  const productsType = ["DVD", "Furniture", "Books"];
+  const { editProduct } = useContext(StateContext);
+  let navigate = useNavigate();
+
+  const { product, type } = editProduct;
+
+  useEffect(() => {
+    //if there isnt any product and no type return to homepage
+    if (!product && !type) {
+      return navigate("/");
+    }
+
+    setBaseForm(product);
+    setFurniture(product);
+    setDVD(product);
+    setBook(product);
+    productType(type);
+  }, []);
 
   return (
     <>
@@ -37,13 +64,15 @@ const EditProduct = ({
               htmlFor="SKU"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
-              First name
+              SKU{" "}
             </label>
             <input
               type="text"
-              onChange={(e) =>
-                setBaseForm({ ...baseForm, SKU: e.target.value })
-              }
+              onChange={(e) => {
+                setBaseForm({ ...baseForm, SKU: e.target.value });
+                console.log({ ...baseForm, SKU: e.target.value });
+              }}
+              value={baseForm?.SKU}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product SKU"
               required
@@ -61,6 +90,7 @@ const EditProduct = ({
               onChange={(e) =>
                 setBaseForm({ ...baseForm, name: e.target.value })
               }
+              value={baseForm?.name}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product name"
               required
@@ -81,6 +111,7 @@ const EditProduct = ({
                   price: Number(e.target.value),
                 })
               }
+              value={baseForm?.price}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product price"
               required
@@ -97,6 +128,7 @@ const EditProduct = ({
               id="productType"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={(e) => productType(e.target.value)}
+              disabled
             >
               {productsType.map((type: string) => (
                 <option key={type} value={type}>
@@ -105,13 +137,13 @@ const EditProduct = ({
               ))}
             </select>
           </div>
-          {selectedProductType === "dvd" && (
-            <DiscInput size={dvd} baseForm={baseForm} />
+          {selectedProductType === "DVD" && (
+            <DiscInput setSize={setDVD} size={dvd} baseForm={baseForm} />
           )}{" "}
-          {selectedProductType === "book" && (
-            <BookInput weight={book} baseForm={baseForm} />
+          {selectedProductType === "Books" && (
+            <BookInput setWeight={setBook} weight={book} baseForm={baseForm} />
           )}
-          {selectedProductType === "furniture" && (
+          {selectedProductType === "Furniture" && (
             <FurnitureInput
               dimension={setFurniture}
               baseForm={baseForm}

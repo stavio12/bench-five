@@ -11,8 +11,9 @@ import EditProduct from "./EditProduct";
 
 const Index = () => {
   let navigate = useNavigate();
-  const { editProduct, products, dvd, books, furniture } =
-    useContext(StateContext);
+  const state = useContext(StateContext);
+
+  const { editProduct, products, dvd, books, furniture } = state;
   const dispatch = useContext(DispatchContext);
 
   const [selectProductType, setSelectProductType] = useState<string>("DVD");
@@ -22,17 +23,17 @@ const Index = () => {
   });
 
   const [booksForm, setBooksForms] = useState<Books>({
-    ...productForms,
+    ...baseProduct,
     weight: "",
   });
 
   const [dvdForm, setDvdForm] = useState<DVD>({
-    ...productForms,
+    ...baseProduct,
     size: "",
   });
 
   const [furnitureForm, setFurnitureForm] = useState<Furniture>({
-    ...productForms,
+    ...baseProduct,
     h: 0,
     w: 0,
     l: 0,
@@ -40,56 +41,88 @@ const Index = () => {
 
   const allProducts = [...dvd, ...books, ...furniture];
 
+  const { edit, type, product } = editProduct;
+
   const submit = (e: any) => {
     e.preventDefault();
 
-    if (allProducts.find((product: any) => product.SKU === productForms.SKU)) {
-      const sku = document.querySelector("#sku");
-
-      //@ts-ignore
-      return (sku.value = "");
-    } else {
-      const newDVD = [...dvd, dvdForm];
-      const newBooks = [...books, booksForm];
-      const newFurniture = [...furniture, furnitureForm];
-
-      console.log(newDVD);
-      selectProductType === "DVD" &&
-        dispatch({
-          type: "DVD",
-          payload: newDVD,
-        });
-
-      selectProductType === "Book" &&
-        dispatch({
-          type: "BOOKS",
-          payload: newBooks,
-        });
-
-      selectProductType === "Furniture" &&
-        dispatch({
-          type: "FURNITURE",
-          payload: newFurniture,
-        });
-
-      localStorage.setItem(
-        `${selectProductType}`,
-        JSON.stringify(
-          (selectProductType === "DVD" && newDVD) ||
-            (selectProductType === "Books" && newBooks) ||
-            (selectProductType === "Furniture" && newFurniture)
-        )
+    if (edit) {
+      const products = state[type.toLocaleLowerCase()];
+      //find index number of product from array
+      const newIndex = products.findIndex(
+        (item: any) => item.SKU === product.SKU
       );
 
-      return navigate("/");
+      const newDVD = dvdForm;
+      const newBooks = booksForm;
+      const newFurniture = furnitureForm;
+
+      //update product object with new data
+      products[Number(`${newIndex}`)] =
+        (type === "DVD" && newDVD) ||
+        (type === "Books" && newBooks) ||
+        (type === "Furniture" && newFurniture);
+
+      // save in local storage
+
+      localStorage.setItem(
+        `${type}`,
+        JSON.stringify(
+          (type === "DVD" && products) ||
+            (type === "Books" && products) ||
+            (type === "Furniture" && products)
+        )
+      );
+    } else {
+      if (
+        allProducts.find((product: any) => product.SKU === productForms.SKU)
+      ) {
+        const sku = document.querySelector("#sku");
+
+        //@ts-ignore
+        return (sku.value = "");
+      } else {
+        const newDVD = [...dvd, dvdForm];
+        const newBooks = [...books, booksForm];
+        const newFurniture = [...furniture, furnitureForm];
+
+        selectProductType === "DVD" &&
+          dispatch({
+            type: "DVD",
+            payload: newDVD,
+          });
+
+        selectProductType === "Book" &&
+          dispatch({
+            type: "BOOKS",
+            payload: newBooks,
+          });
+
+        selectProductType === "Furniture" &&
+          dispatch({
+            type: "FURNITURE",
+            payload: newFurniture,
+          });
+
+        localStorage.setItem(
+          `${selectProductType}`,
+          JSON.stringify(
+            (selectProductType === "DVD" && newDVD) ||
+              (selectProductType === "Books" && newBooks) ||
+              (selectProductType === "Furniture" && newFurniture)
+          )
+        );
+      }
     }
+
+    return navigate("/");
   };
 
   return (
     <>
       <form onSubmit={submit}>
         <div className="flex justify-between">
-          <h1>Product {editProduct ? "Edit" : "Add"} </h1>
+          <h1>Product {edit ? "Edit" : "Add"} </h1>
 
           <div className="d-flex gap-4">
             <button
@@ -108,10 +141,12 @@ const Index = () => {
           </div>
         </div>
         <hr />
-        {!editProduct && (
-          <AddProduct
-            book={setBooksForms}
-            dvd={setDvdForm}
+        {edit ? (
+          <EditProduct
+            book={booksForm}
+            setBook={setBooksForms}
+            dvd={dvdForm}
+            setDVD={setDvdForm}
             setFurniture={setFurnitureForm}
             furniture={furnitureForm}
             setBaseForm={setProductForms}
@@ -119,11 +154,12 @@ const Index = () => {
             productType={setSelectProductType}
             selectedProductType={selectProductType}
           />
-        )}
-        {editProduct && (
-          <EditProduct
-            book={setBooksForms}
-            dvd={setDvdForm}
+        ) : (
+          <AddProduct
+            book={booksForm}
+            setBook={setBooksForms}
+            dvd={dvdForm}
+            setDVD={setDvdForm}
             setFurniture={setFurnitureForm}
             furniture={furnitureForm}
             setBaseForm={setProductForms}

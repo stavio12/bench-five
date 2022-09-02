@@ -12,13 +12,19 @@ export const baseProduct = {
   created_at: new Date().toLocaleString(),
 };
 
+interface EditProduct {
+  edit: boolean;
+  product: Furniture | Books | DVD | null;
+  type: string | null;
+}
+
 export interface StateType {
   products: { dvd: DVD[]; books: Books[]; furniture: Furniture[] };
   Loader: boolean;
   dvd: DVD[];
   books: Books[];
   furniture: Furniture[];
-  editProduct: boolean;
+  editProduct: EditProduct;
 }
 
 export const initialState: StateType = {
@@ -31,7 +37,7 @@ export const initialState: StateType = {
   dvd: [],
   books: [],
   furniture: [],
-  editProduct: false,
+  editProduct: { edit: false, product: null, type: null },
 };
 
 export interface StateAction
@@ -41,7 +47,7 @@ export interface StateAction
     dvd: DVD[];
     books: Books[];
     furniture: Furniture[];
-    editProduct: boolean;
+    editProduct: EditProduct;
   };
 }
 

@@ -4,7 +4,7 @@ import { DVD } from "../../States/types";
 
 interface props {
   dvd: DVD[];
-  selectWorker: (sku: string, checked: boolean) => void;
+  selectWorker: (sku: string, checked: boolean, DVD: string) => void;
   pagination: number;
 }
 
@@ -21,7 +21,7 @@ const DiscProduct = ({ dvd, selectWorker, pagination }: props) => {
               <div className="flex items-center">
                 <input
                   onChange={(e) =>
-                    selectWorker(e.target.value, e.target.checked)
+                    selectWorker(e.target.value, e.target.checked, "DVD")
                   }
                   id="checked-checkbox"
                   type="checkbox"

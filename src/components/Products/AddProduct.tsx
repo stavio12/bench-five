@@ -6,14 +6,16 @@ import DiscInput from "./DiscInput";
 import FurnitureInput from "./FurnitureInput";
 
 interface props {
-  book: (book: Books) => void;
-  dvd: (dvd: DVD) => void;
+  setBook: (book: Books) => void;
+  setDVD: (dvd: DVD) => void;
   setFurniture: (furniture: Furniture) => void;
   furniture: Furniture;
   setBaseForm: (baseForm: BaseProduct) => void;
   productType: (type: string) => void;
   selectedProductType: string;
   baseForm: BaseProduct;
+  book: Books;
+  dvd: DVD;
 }
 
 const AddProduct = ({
@@ -25,6 +27,8 @@ const AddProduct = ({
   setBaseForm,
   productType,
   selectedProductType,
+  setDVD,
+  setBook,
 }: props) => {
   const productsType = ["DVD", "Furniture", "Books"];
 
@@ -129,10 +133,10 @@ const AddProduct = ({
             </select>
           </div>
           {selectedProductType === "DVD" && (
-            <DiscInput size={dvd} baseForm={baseForm} />
+            <DiscInput setSize={setDVD} size={dvd} baseForm={baseForm} />
           )}{" "}
-          {selectedProductType === "Books" && (
-            <BookInput weight={book} baseForm={baseForm} />
+          {selectedProductType === "Book" && (
+            <BookInput setWeight={setBook} weight={book} baseForm={baseForm} />
           )}
           {selectedProductType === "Furniture" && (
             <FurnitureInput

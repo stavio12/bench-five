@@ -20,11 +20,6 @@ const DiscProduct = ({
 }: props) => {
   return (
     <>
-      {/* {dvd
-        //check if  pagination is equal to 4 then slice at 0 and the pagination number
-        //else subtract 4 from pagination number
-        .slice(pagination === 4 ? 0 : pagination - 4, pagination)
-        .map((dvd: DVD) => ( */}
       <div className="flex items-center">
         <input
           onChange={(e) =>
@@ -58,12 +53,10 @@ const DiscProduct = ({
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </p>
 
-      <h1 className="text-5xl"> {dvd.price} $</h1>
-
       <div className="flex items-center gap-2">
         <small>Size : </small> <h5>{dvd.size} MB</h5>
       </div>
-      {/* ))} */}
+      <h1 className="text-5xl"> {dvd.price} $</h1>
     </>
   );
 };

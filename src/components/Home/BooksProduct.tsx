@@ -47,18 +47,16 @@ const BooksProduct = ({
           rel="noopener noreferrer"
           className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white "
         >
-          name : {books.name}
+          {books.name}
         </Link>
       </h5>
       <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
       </p>
-
-      <h1 className="text-5xl"> {books.price} $</h1>
-
       <div className="flex items-center gap-2">
         <small>Weight : </small> <h5>{books.weight} KG</h5>
       </div>
+      <h1 className="text-5xl"> {books.price} $</h1>
     </>
   );
 };

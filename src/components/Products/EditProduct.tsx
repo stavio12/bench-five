@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import DispatchContext from "../../DispatchContext";
 import StateContext from "../../StateContext";
 
-import { baseProduct } from "../../States/reducer";
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 import BookInput from "./BookInput";
 import DiscInput from "./DiscInput";
@@ -53,6 +51,7 @@ const EditProduct = ({
     setDVD(product);
     setBook(product);
     productType(type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import StateContext from "../../StateContext";
@@ -13,7 +13,7 @@ const Index = () => {
   let navigate = useNavigate();
   const state = useContext(StateContext);
 
-  const { editProduct, products, dvd, books, furniture } = state;
+  const { editProduct, dvd, books, furniture } = state;
   const dispatch = useContext(DispatchContext);
 
   const [selectProductType, setSelectProductType] = useState<string>("DVD");

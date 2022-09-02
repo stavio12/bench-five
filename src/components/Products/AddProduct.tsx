@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { baseProduct } from "../../States/reducer";
+import React from "react";
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 import BookInput from "./BookInput";
 import DiscInput from "./DiscInput";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Furniture, BaseProduct } from "../../States/types";
 
 interface props {
@@ -8,7 +8,10 @@ interface props {
 }
 
 const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
-  console.log(furniture);
+  useEffect(() => {
+    dimension({ ...baseForm, l: furniture.l, w: furniture.w, h: furniture.h });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baseForm]);
   return (
     <>
       <div>
@@ -20,7 +23,7 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
         </label>
         <input
           type="number"
-          value={furniture.h}
+          value={furniture.h ? furniture.h : ""}
           onChange={(e) =>
             dimension({
               ...baseForm,
@@ -49,7 +52,7 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
         </label>
         <input
           type="number"
-          value={furniture.w}
+          value={furniture.w ? furniture.w : ""}
           onChange={(e) =>
             dimension({
               ...baseForm,
@@ -78,11 +81,11 @@ const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
         </label>
         <input
           type="number"
-          value={furniture.l}
+          value={furniture.l ? furniture.l : ""}
           onChange={(e) =>
             dimension({
               ...baseForm,
-              h: furniture.l,
+              h: furniture.h,
               w: furniture.w,
               l: Number(e.target.value),
             })

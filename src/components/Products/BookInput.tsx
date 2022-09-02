@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BaseProduct, Books } from "../../States/types";
 
 interface props {
@@ -8,6 +8,10 @@ interface props {
 }
 
 const BookInput = ({ weight, baseForm, setWeight }: props) => {
+  useEffect(() => {
+    setWeight({ ...baseForm, weight: weight.weight });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baseForm]);
   return (
     <>
       <div>

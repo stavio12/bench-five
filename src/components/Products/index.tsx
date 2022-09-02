@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import StateContext from "../../StateContext";
@@ -23,20 +23,20 @@ const Index = () => {
   });
 
   const [booksForm, setBooksForms] = useState<Books>({
-    ...baseProduct,
+    ...productForms,
     weight: "",
   });
 
   const [dvdForm, setDvdForm] = useState<DVD>({
-    ...baseProduct,
+    ...productForms,
     size: "",
   });
 
   const [furnitureForm, setFurnitureForm] = useState<Furniture>({
-    ...baseProduct,
-    h: 0,
-    w: 0,
-    l: 0,
+    ...productForms,
+    h: null,
+    w: null,
+    l: null,
   });
 
   const allProducts = [...dvd, ...books, ...furniture];
@@ -73,6 +73,15 @@ const Index = () => {
             (type === "Furniture" && products)
         )
       );
+
+      dispatch({
+        type: "EDIT_PRODUCT",
+        payload: {
+          edit: false,
+          product: null,
+          type: null,
+        },
+      });
     } else {
       if (
         allProducts.find((product: any) => product.SKU === productForms.SKU)

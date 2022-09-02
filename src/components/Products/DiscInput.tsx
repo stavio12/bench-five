@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DVD, BaseProduct } from "../../States/types";
 
 interface props {
@@ -8,6 +8,11 @@ interface props {
 }
 
 const DiscInput = ({ size, baseForm, setSize }: props) => {
+  useEffect(() => {
+    setSize({ ...baseForm, size: size.size });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baseForm]);
+
   return (
     <>
       <div>

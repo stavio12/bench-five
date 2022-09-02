@@ -15,7 +15,7 @@ export interface Books extends BaseProduct {
 }
 
 export interface Furniture extends BaseProduct {
-  h: number;
-  w: number;
-  l: number;
+  h: number | null;
+  w: number | null;
+  l: number | null;
 }

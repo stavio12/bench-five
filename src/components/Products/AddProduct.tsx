@@ -134,7 +134,7 @@ const AddProduct = ({
           {selectedProductType === "DVD" && (
             <DiscInput setSize={setDVD} size={dvd} baseForm={baseForm} />
           )}{" "}
-          {selectedProductType === "Book" && (
+          {selectedProductType === "Books" && (
             <BookInput setWeight={setBook} weight={book} baseForm={baseForm} />
           )}
           {selectedProductType === "Furniture" && (

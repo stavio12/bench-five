@@ -58,8 +58,6 @@ const Index = () => {
         type: "FURNITURE",
         payload: Furniture,
       });
-    } else {
-      console.log("NOoooooo");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -146,21 +144,20 @@ const Index = () => {
           </div>
         </div>
         <hr />
-        {!localStorage["DVD"] &&
-        !localStorage["Furniture"] &&
-        !localStorage["Books"] ? (
+        {(!localStorage["DVD"] &&
+          !localStorage["Furniture"] &&
+          !localStorage["Books"]) ||
+        (dvd.length === 0 && books.length === 0 && furniture.length === 0) ? (
           <h1 className="text-center pt-20"> No Product Available</h1>
         ) : (
           <div>
             <div className="flex-flex-column*">
               <div className="grid grid-cols-3 sm:grid-cols-4 pt-5 pb-5 gap-5 ">
-                {/* {products.disc && ( */}
                 <DiscProduct
                   selectWorker={selectWorker}
                   dvd={dvd}
                   pagination={pagination}
                 />
-                {/* )} */}
               </div>
 
               <div className="grid grid-cols-3 sm:grid-cols-4 pt-5 pb-5 gap-5 ">

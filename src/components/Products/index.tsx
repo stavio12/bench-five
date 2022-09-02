@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import StateContext from "../../StateContext";
@@ -64,7 +64,6 @@ const Index = () => {
         (type === "Furniture" && newFurniture);
 
       // save in local storage
-
       localStorage.setItem(
         `${type}`,
         JSON.stringify(
@@ -130,7 +129,7 @@ const Index = () => {
   return (
     <>
       <form onSubmit={submit}>
-        <div className="flex justify-between">
+        <div className="flex flex-col sm:flex-row items-center gap-6 sm:justify-between">
           <h1>Product {edit ? "Edit" : "Add"} </h1>
 
           <div className="d-flex gap-4">

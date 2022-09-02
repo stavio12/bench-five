@@ -123,7 +123,7 @@ const Index = () => {
   return (
     <>
       <div>
-        <div className="flex justify-between">
+        <div className="flex flex-col sm:flex-row items-center gap-6 sm:justify-between">
           <div>
             <h1>Products</h1>
           </div>
@@ -152,7 +152,7 @@ const Index = () => {
         ) : (
           <div>
             <div className="flex-flex-column*">
-              <div className="grid grid-cols-3 sm:grid-cols-4 pt-5 pb-5 gap-5 ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5 gap-5 ">
                 <DiscProduct
                   selectWorker={selectWorker}
                   dvd={dvd}
@@ -160,7 +160,7 @@ const Index = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 pt-5 pb-5 gap-5 ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5 gap-5 ">
                 <BooksProduct
                   selectWorker={selectWorker}
                   books={books}
@@ -168,7 +168,7 @@ const Index = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-3 sm:grid-cols-4 pt-5 pb-5  gap-5 ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5  gap-5 ">
                 <FurnitureProduct
                   selectWorker={selectWorker}
                   furniture={furniture}

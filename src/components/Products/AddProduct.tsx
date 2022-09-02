@@ -34,13 +34,13 @@ const AddProduct = ({
   return (
     <>
       <section id="AddProduct">
-        <div className="grid grid-cols-3 sm:grid-cols-2 grid-rows-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 grid-rows-3 gap-5">
           <div>
             <label
               htmlFor="SKU"
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
             >
-              SKU{" "}
+              SKU
             </label>
             <input
               id="sku"
@@ -133,7 +133,7 @@ const AddProduct = ({
           </div>
           {selectedProductType === "DVD" && (
             <DiscInput setSize={setDVD} size={dvd} baseForm={baseForm} />
-          )}{" "}
+          )}
           {selectedProductType === "Books" && (
             <BookInput setWeight={setBook} weight={book} baseForm={baseForm} />
           )}

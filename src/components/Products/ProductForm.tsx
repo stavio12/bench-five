@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import StateContext from "../../StateContext";
 
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
@@ -36,15 +36,12 @@ const ProductForm = ({
 }: props) => {
   const productsType = ["DVD", "Furniture", "Books"];
   const { editProduct } = useContext(StateContext);
-  let navigate = useNavigate();
 
   const { product, type, edit } = editProduct;
 
   useEffect(() => {
     //if there isnt any product and no type return to homepage
     if (product && type) {
-      // return navigate("/");
-
       setBaseForm(product);
       setFurniture(product);
       setDVD(product);

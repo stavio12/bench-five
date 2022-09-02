@@ -22,7 +22,7 @@ interface props {
   dvd: DVD;
 }
 
-const EditProduct = ({
+const ProductForm = ({
   book,
   dvd,
   furniture,
@@ -38,25 +38,26 @@ const EditProduct = ({
   const { editProduct } = useContext(StateContext);
   let navigate = useNavigate();
 
-  const { product, type } = editProduct;
+  const { product, type, edit } = editProduct;
 
   useEffect(() => {
     //if there isnt any product and no type return to homepage
-    if (!product && !type) {
-      return navigate("/");
+    if (product && type) {
+      // return navigate("/");
+
+      setBaseForm(product);
+      setFurniture(product);
+      setDVD(product);
+      setBook(product);
+      productType(type);
     }
 
-    setBaseForm(product);
-    setFurniture(product);
-    setDVD(product);
-    setBook(product);
-    productType(type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <section id="EditProduct">
+      <section id="ProductForm">
         <div className="grid grid-cols-3 sm:grid-cols-2 grid-rows-3 gap-5">
           <div>
             <label
@@ -71,7 +72,7 @@ const EditProduct = ({
                 setBaseForm({ ...baseForm, SKU: e.target.value });
                 console.log({ ...baseForm, SKU: e.target.value });
               }}
-              value={baseForm?.SKU}
+              value={baseForm?.SKU ? baseForm?.SKU : ""}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product SKU"
               required
@@ -89,7 +90,7 @@ const EditProduct = ({
               onChange={(e) =>
                 setBaseForm({ ...baseForm, name: e.target.value })
               }
-              value={baseForm?.name}
+              value={baseForm?.name ? baseForm?.name : ""}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product name"
               required
@@ -110,7 +111,7 @@ const EditProduct = ({
                   price: Number(e.target.value),
                 })
               }
-              value={baseForm?.price}
+              value={baseForm?.price ? baseForm?.price : ""}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product price"
               required
@@ -127,7 +128,7 @@ const EditProduct = ({
               id="productType"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={(e) => productType(e.target.value)}
-              disabled
+              disabled={edit}
             >
               {productsType.map((type: string) => (
                 <option key={type} value={type}>
@@ -155,4 +156,4 @@ const EditProduct = ({
   );
 };
 
-export default EditProduct;
+export default ProductForm;

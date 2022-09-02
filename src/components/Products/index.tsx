@@ -6,8 +6,8 @@ import DispatchContext from "../../DispatchContext";
 import { baseProduct } from "../../States/reducer";
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 
-import AddProduct from "./AddProduct";
-import EditProduct from "./EditProduct";
+// import AddProduct from "./AddProduct";
+import ProductForm from "./ProductForm";
 
 const Index = () => {
   let navigate = useNavigate();
@@ -149,7 +149,20 @@ const Index = () => {
           </div>
         </div>
         <hr />
-        {edit ? (
+
+        <ProductForm
+          book={booksForm}
+          setBook={setBooksForms}
+          dvd={dvdForm}
+          setDVD={setDvdForm}
+          setFurniture={setFurnitureForm}
+          furniture={furnitureForm}
+          setBaseForm={setProductForms}
+          baseForm={productForms}
+          productType={setSelectProductType}
+          selectedProductType={selectProductType}
+        />
+        {/* {edit ? (
           <EditProduct
             book={booksForm}
             setBook={setBooksForms}
@@ -175,7 +188,7 @@ const Index = () => {
             productType={setSelectProductType}
             selectedProductType={selectProductType}
           />
-        )}
+        )} */}
       </form>
     </>
   );

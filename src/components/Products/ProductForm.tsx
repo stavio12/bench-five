@@ -20,6 +20,7 @@ interface props {
   baseForm: BaseProduct;
   book: Books;
   dvd: DVD;
+  disableInputs: boolean;
 }
 
 const ProductForm = ({
@@ -33,6 +34,7 @@ const ProductForm = ({
   selectedProductType,
   setDVD,
   setBook,
+  disableInputs,
 }: props) => {
   const productsType = ["DVD", "Furniture", "Books"];
   const { editProduct } = useContext(StateContext);
@@ -64,6 +66,7 @@ const ProductForm = ({
               SKU{" "}
             </label>
             <input
+              id="sku"
               type="text"
               onChange={(e) =>
                 setBaseForm({ ...baseForm, SKU: e.target.value })
@@ -71,6 +74,15 @@ const ProductForm = ({
               value={baseForm?.SKU ? baseForm?.SKU : ""}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product SKU"
+              onInvalid={(e) =>
+                (e.target as HTMLInputElement).setCustomValidity(
+                  "Enter product SKU"
+                )
+              }
+              onInput={(e) =>
+                (e.target as HTMLInputElement).setCustomValidity("")
+              }
+              disabled={disableInputs}
               required
             />
           </div>
@@ -89,6 +101,15 @@ const ProductForm = ({
               value={baseForm?.name ? baseForm?.name : ""}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product name"
+              onInvalid={(e) =>
+                (e.target as HTMLInputElement).setCustomValidity(
+                  "Enter product name"
+                )
+              }
+              onInput={(e) =>
+                (e.target as HTMLInputElement).setCustomValidity("")
+              }
+              disabled={disableInputs}
               required
             />
           </div>
@@ -110,6 +131,15 @@ const ProductForm = ({
               value={baseForm?.price ? baseForm?.price : ""}
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               placeholder="Enter product price"
+              onInvalid={(e) =>
+                (e.target as HTMLInputElement).setCustomValidity(
+                  "Enter product price"
+                )
+              }
+              onInput={(e) =>
+                (e.target as HTMLInputElement).setCustomValidity("")
+              }
+              disabled={disableInputs}
               required
             />
           </div>
@@ -124,7 +154,7 @@ const ProductForm = ({
               id="productType"
               className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               onChange={(e) => productType(e.target.value)}
-              disabled={edit}
+              disabled={edit || disableInputs}
             >
               {productsType.map((type: string) => (
                 <option key={type} value={type}>
@@ -134,13 +164,24 @@ const ProductForm = ({
             </select>
           </div>
           {selectedProductType === "DVD" && (
-            <DiscInput setSize={setDVD} size={dvd} baseForm={baseForm} />
+            <DiscInput
+              disableInputs={disableInputs}
+              setSize={setDVD}
+              size={dvd}
+              baseForm={baseForm}
+            />
           )}{" "}
           {selectedProductType === "Books" && (
-            <BookInput setWeight={setBook} weight={book} baseForm={baseForm} />
+            <BookInput
+              disableInputs={disableInputs}
+              setWeight={setBook}
+              weight={book}
+              baseForm={baseForm}
+            />
           )}
           {selectedProductType === "Furniture" && (
             <FurnitureInput
+              disableInputs={disableInputs}
               dimension={setFurniture}
               baseForm={baseForm}
               furniture={furniture}

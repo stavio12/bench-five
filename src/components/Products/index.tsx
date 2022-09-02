@@ -8,6 +8,7 @@ import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 
 // import AddProduct from "./AddProduct";
 import ProductForm from "./ProductForm";
+import { Toast } from "../../utils/functions";
 
 const Index = () => {
   let navigate = useNavigate();
@@ -17,7 +18,7 @@ const Index = () => {
   const dispatch = useContext(DispatchContext);
 
   const [selectProductType, setSelectProductType] = useState<string>("DVD");
-
+  const [disableInputs, setDisableInputs] = useState<boolean>(false);
   const [productForms, setProductForms] = useState<BaseProduct>({
     ...baseProduct,
   });
@@ -45,6 +46,8 @@ const Index = () => {
 
   const submit = (e: any) => {
     e.preventDefault();
+
+    setDisableInputs(true);
 
     if (edit) {
       const products = state[type.toLocaleLowerCase()];
@@ -87,6 +90,13 @@ const Index = () => {
       ) {
         const sku = document.querySelector("#sku");
 
+        Toast.fire({
+          text: `Sorry  SKU already exist`,
+          icon: "error",
+        });
+
+        setDisableInputs(false);
+
         //@ts-ignore
         return (sku.value = "");
       } else {
@@ -123,7 +133,12 @@ const Index = () => {
       }
     }
 
-    return navigate("/");
+    Toast.fire({
+      text: `Product ${edit ? "Edited" : "Added"} successfully`,
+      icon: "success",
+    });
+
+    return setTimeout(() => navigate("/"), 3000);
   };
 
   return (
@@ -151,6 +166,7 @@ const Index = () => {
         <hr />
 
         <ProductForm
+          disableInputs={disableInputs}
           book={booksForm}
           setBook={setBooksForms}
           dvd={dvdForm}
@@ -162,33 +178,6 @@ const Index = () => {
           productType={setSelectProductType}
           selectedProductType={selectProductType}
         />
-        {/* {edit ? (
-          <EditProduct
-            book={booksForm}
-            setBook={setBooksForms}
-            dvd={dvdForm}
-            setDVD={setDvdForm}
-            setFurniture={setFurnitureForm}
-            furniture={furnitureForm}
-            setBaseForm={setProductForms}
-            baseForm={productForms}
-            productType={setSelectProductType}
-            selectedProductType={selectProductType}
-          />
-        ) : (
-          <AddProduct
-            book={booksForm}
-            setBook={setBooksForms}
-            dvd={dvdForm}
-            setDVD={setDvdForm}
-            setFurniture={setFurnitureForm}
-            furniture={furnitureForm}
-            setBaseForm={setProductForms}
-            baseForm={productForms}
-            productType={setSelectProductType}
-            selectedProductType={selectProductType}
-          />
-        )} */}
       </form>
     </>
   );

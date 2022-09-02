@@ -9,7 +9,6 @@ import { useContext } from "react";
 
 const Index = () => {
   const dispatch = useContext(DispatchContext);
-
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
   const [dvd, setDVD] = useState<DVD[]>([]);
   const [books, setBooks] = useState<Books[]>([]);

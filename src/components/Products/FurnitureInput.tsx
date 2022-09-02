@@ -5,9 +5,15 @@ interface props {
   dimension: (dimension: Furniture) => void;
   baseForm: BaseProduct;
   furniture: Furniture;
+  disableInputs: boolean;
 }
 
-const FurnitureInput = ({ dimension, baseForm, furniture }: props) => {
+const FurnitureInput = ({
+  dimension,
+  baseForm,
+  furniture,
+  disableInputs,
+}: props) => {
   useEffect(() => {
     dimension({ ...baseForm, l: furniture.l, w: furniture.w, h: furniture.h });
     // eslint-disable-next-line react-hooks/exhaustive-deps

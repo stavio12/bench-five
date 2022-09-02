@@ -131,7 +131,7 @@ const AddProduct = ({
               ))}
             </select>
           </div>
-          {selectedProductType === "DVD" && (
+          {/* {selectedProductType === "DVD" && (
             <DiscInput setSize={setDVD} size={dvd} baseForm={baseForm} />
           )}
           {selectedProductType === "Books" && (
@@ -143,7 +143,7 @@ const AddProduct = ({
               baseForm={baseForm}
               furniture={furniture}
             />
-          )}
+          )} */}
         </div>
       </section>
     </>

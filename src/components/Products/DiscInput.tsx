@@ -5,9 +5,10 @@ interface props {
   setSize: (size: DVD) => void;
   size: DVD;
   baseForm: BaseProduct;
+  disableInputs: boolean;
 }
 
-const DiscInput = ({ size, baseForm, setSize }: props) => {
+const DiscInput = ({ size, baseForm, setSize, disableInputs }: props) => {
   useEffect(() => {
     setSize({ ...baseForm, size: size.size });
     // eslint-disable-next-line react-hooks/exhaustive-deps

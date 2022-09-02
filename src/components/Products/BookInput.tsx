@@ -5,9 +5,10 @@ interface props {
   setWeight: (weight: Books) => void;
   baseForm: BaseProduct;
   weight: Books;
+  disableInputs: boolean;
 }
 
-const BookInput = ({ weight, baseForm, setWeight }: props) => {
+const BookInput = ({ weight, baseForm, setWeight, disableInputs }: props) => {
   useEffect(() => {
     setWeight({ ...baseForm, weight: weight.weight });
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -22,7 +22,7 @@ const Index = () => {
     sku: "",
   });
 
-  const [pagination, setPagination] = useState<number>(12);
+  const [pagination, setPagination] = useState<number>(6);
 
   useEffect(() => {
     if (
@@ -105,69 +105,68 @@ const Index = () => {
         ) : (
           <div>
             <div className="flex-flex-column*">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5 gap-5 ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 pt-5 pb-5 gap-5 ">
                 {[...furniture, ...dvd, ...books]
                   //check if  pagination is equal to 4 then slice at 0 and the pagination number
                   //else subtract 4 from pagination number
-                  .slice(pagination === 12 ? 0 : pagination - 12, pagination)
+                  .slice(pagination === 6 ? 0 : pagination - 6, pagination)
                   .map((product: any) => (
-                    <div
-                      key={product.SKU}
-                      className="product_card p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 "
-                    >
-                      {product.size && (
-                        <DiscProduct
-                          setSelectedProducts={setSelectedProducts}
-                          setSelectProductEdit={setSelectProductEdit}
-                          selectedProducts={selectedProducts}
-                          dvd={product}
-                          pagination={pagination}
-                        />
-                      )}
+                    <div key={product.SKU} className="flex justify-center">
+                      <div className="product_card* flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white shadow-lg">
+                        {product.size && (
+                          <DiscProduct
+                            setSelectedProducts={setSelectedProducts}
+                            setSelectProductEdit={setSelectProductEdit}
+                            selectedProducts={selectedProducts}
+                            dvd={product}
+                            pagination={pagination}
+                          />
+                        )}
 
-                      {product.weight && (
-                        <BooksProduct
-                          setSelectedProducts={setSelectedProducts}
-                          setSelectProductEdit={setSelectProductEdit}
-                          selectedProducts={selectedProducts}
-                          books={product}
-                          pagination={pagination}
-                        />
-                      )}
-                      {product.l && (
-                        <FurnitureProduct
-                          setSelectedProducts={setSelectedProducts}
-                          setSelectProductEdit={setSelectProductEdit}
-                          selectedProducts={selectedProducts}
-                          furniture={product}
-                          pagination={pagination}
-                        />
-                      )}
+                        {product.weight && (
+                          <BooksProduct
+                            setSelectedProducts={setSelectedProducts}
+                            setSelectProductEdit={setSelectProductEdit}
+                            selectedProducts={selectedProducts}
+                            books={product}
+                            pagination={pagination}
+                          />
+                        )}
+                        {product.l && (
+                          <FurnitureProduct
+                            setSelectedProducts={setSelectedProducts}
+                            setSelectProductEdit={setSelectProductEdit}
+                            selectedProducts={selectedProducts}
+                            furniture={product}
+                            pagination={pagination}
+                          />
+                        )}
+                      </div>
                     </div>
                   ))}
               </div>
             </div>
             <div
               className={
-                [...furniture, ...dvd, ...books].length > 11
+                [...furniture, ...dvd, ...books].length > 5
                   ? "text-center pb-5"
                   : "hidden"
               }
             >
               <button
                 onClick={() =>
-                  pagination > 12
-                    ? setPagination(pagination - 12)
+                  pagination > 6
+                    ? setPagination(pagination - 6)
                     : setPagination(pagination)
                 }
                 className="inline-flex items-center py-2 px-4 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-                disabled={pagination <= 12}
+                disabled={pagination <= 6}
               >
                 Previous
               </button>
 
               <button
-                onClick={() => setPagination(pagination + 12)}
+                onClick={() => setPagination(pagination + 6)}
                 className="inline-flex items-center py-2 px-4 ml-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
                 disabled={[...furniture, ...dvd, ...books].length < pagination}
               >

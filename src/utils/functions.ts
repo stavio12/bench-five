@@ -70,7 +70,7 @@ export const massDelete = (
 
   setSelectedProducts([]);
 
-  return setPagination(12);
+  return setPagination(6);
 };
 
 export const selectWorker = (

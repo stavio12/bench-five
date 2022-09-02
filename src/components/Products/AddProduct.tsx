@@ -1,4 +1,5 @@
 import React from "react";
+import { productsType } from "../../States/reducer";
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 import BookInput from "./BookInput";
 import DiscInput from "./DiscInput";
@@ -29,8 +30,6 @@ const AddProduct = ({
   setDVD,
   setBook,
 }: props) => {
-  const productsType = ["DVD", "Furniture", "Books"];
-
   return (
     <>
       <section id="AddProduct">

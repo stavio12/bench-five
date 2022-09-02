@@ -1,13 +1,23 @@
 import React from "react";
 import { DVD } from "../../States/types";
+import { selectWorker } from "../../utils/functions";
 
 interface props {
   dvd: DVD[];
-  selectWorker: (sku: string, checked: boolean, DVD: string) => void;
+  // selectWorker: (sku: string, checked: boolean, DVD: string) => void;
   pagination: number;
+  selectedProducts: string[];
+  setSelectProductEdit: (products: { type: string; sku: string }) => void;
+  setSelectedProducts: (products: string[]) => void;
 }
 
-const DiscProduct = ({ dvd, selectWorker, pagination }: props) => {
+const DiscProduct = ({
+  dvd,
+  pagination,
+  selectedProducts,
+  setSelectProductEdit,
+  setSelectedProducts,
+}: props) => {
   return (
     <>
       {dvd
@@ -16,11 +26,18 @@ const DiscProduct = ({ dvd, selectWorker, pagination }: props) => {
         .slice(pagination === 4 ? 0 : pagination - 4, pagination)
         .map((dvd: DVD) => (
           <div className="col-span-full*" key={dvd.SKU}>
-            <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
+            <div className="product_card p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 ">
               <div className="flex items-center">
                 <input
                   onChange={(e) =>
-                    selectWorker(e.target.value, e.target.checked, "DVD")
+                    selectWorker(
+                      e.target.value,
+                      e.target.checked,
+                      "DVD",
+                      selectedProducts,
+                      setSelectProductEdit,
+                      setSelectedProducts
+                    )
                   }
                   id="checked-checkbox"
                   type="checkbox"
@@ -29,14 +46,14 @@ const DiscProduct = ({ dvd, selectWorker, pagination }: props) => {
                 />
               </div>
               <small> SKU : {dvd.SKU}</small>
-              <h5>
+              <h5 className="text-ellipsis overflow-hidden">
                 <a
                   href={dvd.img}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
                 >
-                  name : {dvd.name}
+                  {dvd.name}
                 </a>
               </h5>
               <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">

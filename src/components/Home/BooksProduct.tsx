@@ -1,14 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Books } from "../../States/types";
+import { selectWorker } from "../../utils/functions";
 
 interface props {
   books: Books[];
-  selectWorker: (sku: string, checked: boolean, Books: string) => void;
+  // selectWorker: (sku: string, checked: boolean, DVD: string) => void;
   pagination: number;
+  selectedProducts: string[];
+  setSelectProductEdit: (products: { type: string; sku: string }) => void;
+  setSelectedProducts: (products: string[]) => void;
 }
 
-const BooksProduct = ({ books, selectWorker, pagination }: props) => {
+const BooksProduct = ({
+  books,
+  pagination,
+  selectedProducts,
+  setSelectProductEdit,
+  setSelectedProducts,
+}: props) => {
   return (
     <>
       {books
@@ -17,11 +27,18 @@ const BooksProduct = ({ books, selectWorker, pagination }: props) => {
         .slice(pagination === 4 ? 0 : pagination - 4, pagination)
         .map((book: Books) => (
           <div className="col-span-full*" key={book.SKU}>
-            <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div className="product_card p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center">
                 <input
                   onChange={(e) =>
-                    selectWorker(e.target.value, e.target.checked, "Books")
+                    selectWorker(
+                      e.target.value,
+                      e.target.checked,
+                      "Books",
+                      selectedProducts,
+                      setSelectProductEdit,
+                      setSelectedProducts
+                    )
                   }
                   id="checked-checkbox"
                   type="checkbox"
@@ -30,12 +47,12 @@ const BooksProduct = ({ books, selectWorker, pagination }: props) => {
                 />
               </div>
               <small> SKU : {book.SKU}</small>
-              <h5>
+              <h5 className="text-ellipsis overflow-hidden">
                 <Link
                   to="/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
+                  className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white "
                 >
                   name : {book.name}
                 </Link>

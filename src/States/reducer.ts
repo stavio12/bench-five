@@ -4,6 +4,8 @@ interface Action<T> {
   type: T;
 }
 
+export const productsType = ["DVD", "Furniture", "Books"];
+
 export const baseProduct = {
   SKU: "",
   name: "",

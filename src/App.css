@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.product_card {
+  height: 260px;
+  max-height: 280px;
+}

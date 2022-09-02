@@ -1,14 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Furniture } from "../../States/types";
+import { selectWorker } from "../../utils/functions";
 
 interface props {
   furniture: Furniture[];
-  selectWorker: (sku: string, checked: boolean, Furniture: string) => void;
+  // selectWorker: (sku: string, checked: boolean, DVD: string) => void;
   pagination: number;
+  selectedProducts: string[];
+  setSelectProductEdit: (products: { type: string; sku: string }) => void;
+  setSelectedProducts: (products: string[]) => void;
 }
 
-const FurnitureProduct = ({ furniture, selectWorker, pagination }: props) => {
+const FurnitureProduct = ({
+  furniture,
+  pagination,
+  selectedProducts,
+  setSelectProductEdit,
+  setSelectedProducts,
+}: props) => {
   return (
     <>
       {furniture
@@ -17,11 +27,18 @@ const FurnitureProduct = ({ furniture, selectWorker, pagination }: props) => {
         .slice(pagination === 4 ? 0 : pagination - 4, pagination)
         .map((furniture: Furniture) => (
           <div className="col-span-full*" key={furniture.SKU}>
-            <div className="p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div className="product_card p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
               <div className="flex items-center">
                 <input
                   onChange={(e) =>
-                    selectWorker(e.target.value, e.target.checked, "Furniture")
+                    selectWorker(
+                      e.target.value,
+                      e.target.checked,
+                      "Furniture",
+                      selectedProducts,
+                      setSelectProductEdit,
+                      setSelectedProducts
+                    )
                   }
                   id="checked-checkbox"
                   type="checkbox"
@@ -30,7 +47,7 @@ const FurnitureProduct = ({ furniture, selectWorker, pagination }: props) => {
                 />
               </div>
               <small> SKU : {furniture.SKU}</small>
-              <h5>
+              <h5 className="text-ellipsis overflow-hidden">
                 <Link
                   to="/"
                   target="_blank"

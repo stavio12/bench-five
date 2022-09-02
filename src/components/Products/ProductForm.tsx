@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useContext } from "react";
 // import { useNavigate } from "react-router-dom";
 import StateContext from "../../StateContext";
+import { productsType } from "../../States/reducer";
 
 import { BaseProduct, Books, DVD, Furniture } from "../../States/types";
 import BookInput from "./BookInput";
@@ -36,7 +37,6 @@ const ProductForm = ({
   setBook,
   disableInputs,
 }: props) => {
-  const productsType = ["DVD", "Furniture", "Books"];
   const { editProduct } = useContext(StateContext);
 
   const { product, type, edit } = editProduct;

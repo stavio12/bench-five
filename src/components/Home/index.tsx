@@ -6,6 +6,7 @@ import BooksProduct from "./BooksProduct";
 import FurnitureProduct from "./FurnitureProduct";
 import { Books, DVD, Furniture } from "../../States/types";
 import { useContext } from "react";
+import { massDelete } from "../../utils/functions";
 
 const Index = () => {
   const dispatch = useContext(DispatchContext);
@@ -22,8 +23,6 @@ const Index = () => {
   });
 
   const [pagination, setPagination] = useState<number>(4);
-
-  const productsType = ["DVD", "Furniture", "Books"];
 
   useEffect(() => {
     if (
@@ -61,64 +60,6 @@ const Index = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const selectWorker = (sku: string, checked: boolean, type: string) => {
-    setSelectProductEdit({ type, sku });
-    //check if product is checked,
-    // if it's checked add to array for deletion else remove from array when unchecked
-    if (checked) {
-      setSelectedProducts([...selectedProducts, sku]);
-    } else {
-      const newSelect = selectedProducts.filter((item) => item !== sku);
-
-      setSelectedProducts(newSelect);
-    }
-  };
-
-  const massDelete = () => {
-    const newDVD = dvd.filter(
-      (item) => !selectedProducts.find((f) => f === item.SKU)
-    );
-    setDVD(newDVD);
-
-    const newBooks = books.filter(
-      (item) => !selectedProducts.find((f) => f === item.SKU)
-    );
-    setBooks(newBooks);
-
-    const newFurniture = furniture.filter(
-      (item) => !selectedProducts.find((f) => f === item.SKU)
-    );
-    setFurniture(newFurniture);
-
-    dispatch({
-      type: "DVD",
-      payload: newDVD,
-    });
-
-    dispatch({
-      type: "BOOKS",
-      payload: newBooks,
-    });
-
-    dispatch({
-      type: "FURNITURE",
-      payload: newFurniture,
-    });
-
-    productsType.map((type: string) =>
-      localStorage.setItem(
-        `${type}`,
-        JSON.stringify(
-          (type === "DVD" && newDVD) ||
-            (type === "Books" && newBooks) ||
-            (type === "Furniture" && newFurniture)
-        )
-      )
-    );
-
-    return setSelectedProducts([]);
-  };
-
   return (
     <>
       <div>
@@ -136,7 +77,19 @@ const Index = () => {
               type="button"
               className="text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
               disabled={selectedProducts.length === 0}
-              onClick={() => massDelete()}
+              onClick={() =>
+                massDelete(
+                  dvd,
+                  selectedProducts,
+                  books,
+                  furniture,
+                  setFurniture,
+                  setBooks,
+                  setDVD,
+                  dispatch,
+                  setSelectedProducts
+                )
+              }
             >
               Mass Delete
             </button>
@@ -153,7 +106,10 @@ const Index = () => {
             <div className="flex-flex-column*">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5 gap-5 ">
                 <DiscProduct
-                  selectWorker={selectWorker}
+                  // selectWorker={selectWorker}
+                  setSelectedProducts={setSelectedProducts}
+                  setSelectProductEdit={setSelectProductEdit}
+                  selectedProducts={selectedProducts}
                   dvd={dvd}
                   pagination={pagination}
                 />
@@ -161,7 +117,10 @@ const Index = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5 gap-5 ">
                 <BooksProduct
-                  selectWorker={selectWorker}
+                  // selectWorker={selectWorker}
+                  setSelectedProducts={setSelectedProducts}
+                  setSelectProductEdit={setSelectProductEdit}
+                  selectedProducts={selectedProducts}
                   books={books}
                   pagination={pagination}
                 />
@@ -169,7 +128,10 @@ const Index = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 pt-5 pb-5  gap-5 ">
                 <FurnitureProduct
-                  selectWorker={selectWorker}
+                  // selectWorker={selectWorker}
+                  setSelectedProducts={setSelectedProducts}
+                  setSelectProductEdit={setSelectProductEdit}
+                  selectedProducts={selectedProducts}
                   furniture={furniture}
                   pagination={pagination}
                 />

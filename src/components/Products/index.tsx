@@ -25,12 +25,12 @@ const Index = () => {
 
   const [booksForm, setBooksForms] = useState<Books>({
     ...productForms,
-    weight: "",
+    weight: null,
   });
 
   const [dvdForm, setDvdForm] = useState<DVD>({
     ...productForms,
-    size: "",
+    size: null,
   });
 
   const [furnitureForm, setFurnitureForm] = useState<Furniture>({

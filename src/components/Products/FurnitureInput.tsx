@@ -104,6 +104,7 @@ const FurnitureInput = ({
             )
           }
           onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
+          disabled={disableInputs}
           required
         />
       </div>

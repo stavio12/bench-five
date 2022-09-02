@@ -27,11 +27,11 @@ const DiscInput = ({ size, baseForm, setSize, disableInputs }: props) => {
           onChange={(e) =>
             setSize({
               ...baseForm,
-              size: e.target.value,
+              size: Number(e.target.value),
             })
           }
-          value={size.size}
-          type="text"
+          value={size.size ? size.size : ""}
+          type="number"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="Enter product size"
           onInvalid={(e) =>
@@ -40,6 +40,7 @@ const DiscInput = ({ size, baseForm, setSize, disableInputs }: props) => {
             )
           }
           onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
+          disabled={disableInputs}
           required
         />
       </div>

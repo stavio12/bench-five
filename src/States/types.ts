@@ -7,11 +7,11 @@ export interface BaseProduct {
 }
 
 export interface DVD extends BaseProduct {
-  size: string;
+  size: number | null;
 }
 
 export interface Books extends BaseProduct {
-  weight: string;
+  weight: number | null;
 }
 
 export interface Furniture extends BaseProduct {

@@ -31,14 +31,14 @@ const DiscProduct = ({ dvd, selectWorker, pagination }: props) => {
               </div>
               <small> SKU : {dvd.SKU}</small>
               <h5>
-                <Link
-                  to="/"
+                <a
+                  href={dvd.img}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white"
                 >
                   name : {dvd.name}
-                </Link>
+                </a>
               </h5>
               <p className="mb-3 font-normal text-gray-500 dark:text-gray-400">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.

@@ -2,7 +2,7 @@ export interface BaseProduct {
   SKU: string;
   name: string;
   price: number;
-  // image: string;
+  img: string;
   created_at: string;
 }
 

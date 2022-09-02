@@ -8,8 +8,8 @@ export const baseProduct = {
   SKU: "",
   name: "",
   price: 0,
-  // image: "",
-  created_at: new Date().toLocaleString(),
+  img: "https://bit.ly/3ekX4h6",
+  created_at: `${new Date()}`,
 };
 
 interface EditProduct {
